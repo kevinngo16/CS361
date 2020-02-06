@@ -1,0 +1,169 @@
+Line 11 - 44 : Declaring variables, structs, and type
+
+Line 47 - 54 : Declaring more variables.
+
+Line 56 - 97 : Parsing command line and assigning variable value
+
+Line 101 - 103: Declaring tables
+
+Line 107 - 121: Opening file and display stats of file
+
+Line 125 - 128: Memory-mapping file to memory(mAccess)
+
+Line 136 - 151: Initailizing tables with values
+
+Line 157 - 208: Finding upper bound array in mAccess, loop through, doing paging for both unlimited and FIFO memory algorithm
+
+Line 209 - 233: Print out results
+
+
+1. open and log into one of uic cs server in putty
+2. create a c-file with "vim vmpager.c"
+3. Copy the contents of vmpagerKngo6.txt
+4. compile the c-file with "gcc -o VMPager vmpager.c"
+5. to run the VMPager executable, type "/.VMPager fileName memoryAccesses frameTableSize"
+	a. fileName is the name of the file to process. i.e. Chevalier_473.bmp
+	b. memoryAccesses is the number of memory access to process fileName. If the fileName is sized 100
+	   and memoryAccesses is 50, then only half the file will be process. If memoryAccesses is 0, then
+	   the whole file will be process. If memoryAccesses > fileName size, then the whole file will be
+	   process and stop at the end of file. It will not continue further.
+	c. frameTableSize is the size of the frame table. Decreasing frame size will result in more page
+	   misses. That means if decreasingframe size results in more page misses, then increasing the 
+	   frame size will result in fewer page misses. If the frame size is greater than 66536, Then we 
+	   can assume infinite frame memory because the page and pid we can get is 256*256 = 66536, which
+	   means we can't get any fewer page misses because we won't need to remove a page and load in a
+	   new page if the frame size covers more than any possibility of page misses. 
+	
+	NOTE: If frameTableSize > memoryAccesses, then increasing frameTableSize will not decrease page misses
+
+Results from the program:
+
+
+
+//test.bmp is Chevalier_473.bmp for shorter and easier time to run the executable
+//===========================================================
+
+
+
+//Input:./VMPager test.bmp
+Program by Kevin Ngo, kngo6, ACCC name: temp30, UIN:650421455
+VMPager Homework (3)
+
+File size: 2105336 bytes
+File used 4112 blocks in memory
+
+Processing  test.bmp  with  256  frameTableSize(bytes).
+
+upperLimit of FrameTable:1052668
+
+File name: test.bmp
+Number of memoryAccess: 0, will process the whole file
+Size of frametable: 256
+
+Unlimit Memory:
+Page Hits: 989530
+Page Misses: 63138
+
+FIFO Simulation:
+Page Hits: 120447
+Page Misses:932221
+
+
+Infinite memory has 721.55% more page hits and -93.23% more page misses than FIFO
+
+
+
+//===============================================================
+
+
+
+//Input:./VMPager test.bmp 0 0
+Program by Kevin Ngo, kngo6, ACCC name: temp30, UIN:650421455
+VMPager Homework (3)
+
+File size: 2105336 bytes
+File used 4112 blocks in memory
+
+Processing  test.bmp  with  256  frameTableSize(bytes).
+
+upperLimit of FrameTable:1052668
+
+File name: test.bmp
+Number of memoryAccess: 0, will process the whole file
+Size of frametable: 256
+
+Unlimit Memory:
+Page Hits: 989530
+Page Misses: 63138
+
+FIFO Simulation:
+Page Hits: 120447
+Page Misses:932221
+
+
+Infinite memory has 721.55% more page hits and -93.23% more page misses than FIFO
+
+
+
+//===========================================================
+
+
+
+//Input: ./VMPager test.bmp 50 50
+Program by Kevin Ngo, kngo6, ACCC name: temp30, UIN:650421455
+VMPager Homework (3)
+
+File size: 2105336 bytes
+File used 4112 blocks in memory
+
+Processing  test.bmp  with  50  frameTableSize(bytes).
+
+upperLimit of FrameTable:50
+
+File name: test.bmp
+Number of memoryAccess: 50
+Size of frametable: 50
+
+Unlimit Memory:
+Page Hits: 21
+Page Misses: 29
+
+FIFO Simulation:
+Page Hits: 12
+Page Misses:38
+
+
+Infinite memory has 75.00% more page hits and -23.68% more page misses than FIFO
+
+
+
+//===========================================================
+
+
+
+//Input: ./VMPager test.bmp 5 5
+Program by Kevin Ngo, kngo6, ACCC name: temp30, UIN:650421455
+VMPager Homework (3)
+
+File size: 2105336 bytes
+File used 4112 blocks in memory
+
+Processing  test.bmp  with  5  frameTableSize(bytes).
+
+upperLimit of FrameTable:5
+
+File name: test.bmp
+Number of memoryAccess: 5
+Size of frametable: 5
+
+Unlimit Memory:
+Page Hits: 1
+Page Misses: 4
+
+FIFO Simulation:
+Page Hits: 1
+Page Misses:4
+
+
+Infinite memory has 0.00% more page hits and 0.00% more page misses than FIFO
+
