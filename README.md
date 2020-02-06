@@ -41,6 +41,7 @@ Results from the program:
 
 
 //test.bmp is Chevalier_473.bmp for shorter and easier time to run the executable
+//.bmp is bitmap image file
 //===========================================================
 
 
